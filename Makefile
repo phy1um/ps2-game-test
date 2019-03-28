@@ -3,7 +3,7 @@ EE_BIN = bin/test.elf
 PC_BIN = bin/test.exe
 
 OBJS =  main.o game.o
-EE_OBJS = $(OBJS) platform_ps2.o sys_ps2.o romdisk.o
+EE_OBJS = $(OBJS) platform_ps2.o sys_ps2.o draw_ps2.o romdisk.o
 
 INCLUDE = -I/usr/include/ -I/usr/include/SDL
 EE_INCS = -I$(PS2SDK)/ports/include \
@@ -14,8 +14,8 @@ CFLAGS = -Wall
 EE_CFLAGS = $(CFLAGS) 
 
 EE_LDFLAGS = -L$(PS2SDK)/ports/lib -L$(PS2DEV)/gsKit/lib -L$(PS2SDK)/ee/common/lib
-EE_LIBS = -lm -lmc -lc -lkernel -ldebug -lromfs -lgskit_toolkit 
-EE_LIBS += -lgskit -ldmakit -Xlinker 
+EE_LIBS = -lgskit -lgskit_toolkit -ldmakit -lmc -lc -lpng -lz -lm  -lkernel -ldebug -lromfs 
+EE_LIBS += -Xlinker
 
 PS2HOST=192.168.1.140
 

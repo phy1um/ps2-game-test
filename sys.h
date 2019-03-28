@@ -3,7 +3,6 @@
 
 int sys_init();
 int sys_shutdown();
-void sys_sleep(long ms);
-long sys_time_ms();
+void sys_sleep(unsigned long ms);
 
 #endif

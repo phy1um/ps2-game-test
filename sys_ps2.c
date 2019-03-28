@@ -2,6 +2,7 @@
 #include <romfs_io.h>
 #include <gsToolkit.h>
 #include <kernel.h>
+#include <time.h>
 #include "sys.h"
 #include "video.h"
 #include "platform.h"
@@ -15,14 +16,27 @@ int watcher_id;
 void wakeup_target(s32 alarm_id, u16 time, void *arg)
 {
     int tgt = *((int*)arg);
-    WakeupThread(tgt);
+    WakeupThread(main_thread_id);
 }
 
-void sys_sleep(long ms)
+void sys_sleep(unsigned long ms)
 {
+#if 0
     u16 ticks = (u16) ms;
     SetAlarm(ticks, &wakeup_target, (void*)&main_thread_id);
+    printf("Going to sleep...");
     SleepThread();
+    printf("Woke up!");
+#else
+    clock_t start = clock();
+    clock_t now;
+    float diff = 0;
+    do {
+        now = clock();
+        diff = (float) (now - start) / (float) CLOCKS_PER_SEC;
+    }
+    while(diff*1000 < ms);
+#endif
 }
 
 int sys_init()
@@ -65,5 +79,6 @@ int sys_init()
 
 int sys_shutdown()
 {
+    SleepThread();
     return 0;
 }

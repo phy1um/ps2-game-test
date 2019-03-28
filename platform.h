@@ -3,16 +3,16 @@
 
 #include <stdarg.h>
 
-#define LOGAT "(@%s:%s)"
+#define LOGAT "(@%s:%d)"
 
 #if defined(__MINGW32__)
 // Windows must log explicitly to a file
 extern FILE *LOGFILE;
-#define log(p, m, f, l, ...) fprintf(LOGFILE, p LOGAT m, f, l, ##__VA_ARGS__)
+#define log(p, m, f, l, ...) fprintf(LOGFILE, p LOGAT m "\n", f, l, ##__VA_ARGS__)
 
 #elif defined(_EE)
 // PS2: Just log on the network link FOR NOW
-#define log(p, m, f, l, ...) printf(p LOGAT m, f, l, ##__VA_ARGS__)
+#define log(p, m, f, l, ...) printf(p LOGAT m "\n", f, l, ##__VA_ARGS__)
 #include <gsToolkit.h>
 extern GSGLOBAL *gsGlobal;
 extern GSFONTM *gsFontm;
@@ -20,7 +20,7 @@ extern GSFONTM *gsFontm;
 #else
 
 //#error "Unsupported platform"
-#define log(p, m, f, l, ...) printf(p LOGAT m, f, l, ##__VA_ARGS__)
+#define log(p, m, f, l, ...) printf(p LOGAT m "\n", f, l, ##__VA_ARGS__)
 
 #endif
 
