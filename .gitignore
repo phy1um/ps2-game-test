@@ -1,0 +1,6 @@
+min/*
+*.o
+*.elf
+*.iso
+*.log
+.vscode/*

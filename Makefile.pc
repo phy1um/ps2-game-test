@@ -1,0 +1,26 @@
+
+INCLUDE=-ID:\\Beta\\C\\include\\SDL
+LDFLAGS=-LD:\\Beta\\C\\lib
+
+CC=D:\\Alpha\\Port\\mingw-get\\bin\\gcc.exe
+
+PC_LIBS=-lSDL -lSDLmain
+LDFLAGS=-LD:\\Beta\\C\\lib
+
+
+PC_BIN=D:\\Beta\\workspace\\ps2-mover-test\\bin\\out.exe
+
+OBJS=image.o bmp.o main.o
+
+CFLAGS=-Wall -v -m32 -mwindows
+
+pc: $(PC_BIN)
+
+%.o: %.c
+	$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
+
+$(PC_BIN): $(OBJS)
+	$(CC) -o $(PC_BIN) $(OBJS) $(INCLUDE) $(LDFLAGS) $(PC_LIBS) -m32 -mwindows
+
+clean:
+	del $(OBJS) 

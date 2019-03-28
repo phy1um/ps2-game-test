@@ -1,0 +1,35 @@
+EE_BIN = bin/test.elf
+PC_BIN = bin/test.exe
+
+OBJS = image.o main.o
+EE_OBJS = $(OBJS) romdisk.o
+
+INCLUDE = -I/usr/include/ -I/usr/include/SDL
+EE_INCS = -I$(PS2SDK)/ports/include \
+			-I$(PS2SDK)/ports/include/SDL
+
+CFLAGS = -Wall
+EE_CFLAGS = $(CFLAGS) 
+
+EE_LDFLAGS = -L$(PS2SDK)/ports/lib
+EE_LIBS = -lstdc++ -lsdl -lsdlmain -lm -lmc -lc -ldebug -lromfs -lSDL_image
+
+PS2HOST=192.168.1.140
+
+PC_LIBS = -lSDL -lSDLmain
+CC=x86_64-w64-mingw32-gcc
+
+ROMDISK=bin/romdisk.iso
+GENROMFS=$(PS2SDK)/bin/genromfs
+ROMDIR=res
+
+# from ROMFS
+EE_CFLAGS += -Dfopen=ropen
+EE_CFLAGS += -Dfclose=rclose
+EE_CFLAGS += -Dfread=rread
+EE_CFLAGS += -Dfwrite=rwrite
+EE_CFLAGS += -Dfseek=rseek
+EE_CFLAGS += -Dftell=rtell
+EE_CFLAGS += -Dfgetc=rgetc
+#EE_CFLAGS += -Dfgets=rgets
+EE_CFLAGS += -Dmmap=rmmap
