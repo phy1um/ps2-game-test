@@ -5,7 +5,7 @@
 #include "events.h"
 #include "input.h"
 #include "room.h"
-#include "room_list.h"
+#include "rooms/room_list.h"
 
 #define GAME_FPS 60
 static unsigned long SECOND = 1000;

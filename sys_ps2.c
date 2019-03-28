@@ -16,7 +16,7 @@ int watcher_id;
 void wakeup_target(s32 alarm_id, u16 time, void *arg)
 {
     int tgt = *((int*)arg);
-    WakeupThread(main_thread_id);
+    WakeupThread(tgt);
 }
 
 void sys_sleep(unsigned long ms)
@@ -72,7 +72,7 @@ int sys_init()
     gsKit_init_screen(gsGlobal);
     gsKit_fontm_upload(gsGlobal, gsFontm);
 
-    int main_thread_id = GetThreadId();
+    main_thread_id = GetThreadId();
 
     return 0;
 }

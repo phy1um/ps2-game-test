@@ -2,7 +2,7 @@
 EE_BIN = bin/test.elf
 PC_BIN = bin/test.exe
 
-OBJS =  main.o game.o events.o input.o room.o room_sandbox.o
+OBJS =  main.o game.o events.o input.o room.o rooms/room_sandbox.o
 EE_OBJS = $(OBJS) platform_ps2.o sys_ps2.o draw_ps2.o events_ps2.o romdisk.o
 
 INCLUDE = -I/usr/include/ -I/usr/include/SDL

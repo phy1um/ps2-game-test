@@ -1,11 +1,11 @@
 
-#include "input.h"
-#include "events.h"
-#include "draw.h"
-#include "room.h"
-#include "menu.h"
-#include "game.h"
-#include "platform.h"
+#include "../input.h"
+#include "../events.h"
+#include "../draw.h"
+#include "../room.h"
+#include "../menu.h"
+#include "../game.h"
+#include "../platform.h"
 
 #define sgn(z) ( ( (z) > 0) - ( (z) < 0) )
 
