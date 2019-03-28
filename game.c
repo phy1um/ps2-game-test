@@ -8,34 +8,34 @@
 
 int game_enter()
 {
+    init_texture_memory(5);
+    int rc;
+    rc = texture_load("host:res/tiles.png", "til");
+    if(rc != 0) {
+        fatal("Failed to load tiles.png!");
+        return -1;
+    }
     return 0;
 }
 
 
 int game_loop()
 {
-    GSTEXTURE test;
-    gsKit_texture_png(gsGlobal, &test, "host:res/tiles.png");
-    u64 black = gs_rgb(0,0,0);
-    float timedelta = 0;
-    clock_t tt;
+    void *t = texture_get_by_name("til");
+    if(t == 0) {
+        fatal("Failed to get texture!");
+        return -1;
+    }
+    struct sprite s = {
+        t, 0, 0, 20, 20, 20, 20, 0, 0 };
+    struct image im = { &s, 30, 40, 1.2f };
 
-    int i = 0;
-    int run = 1;
-    while(run) {
-        tt = clock();
-        gsKit_clear(gsGlobal, COL_CLEAR);
-        gsKit_fontm_print_scaled(gsGlobal, gsFontm, 20+i, 20, 2, 0.5f, black, "TEST");
-        gsKit_prim_sprite_texture(gsGlobal, &test, 
-                30+i, 30, 0, 0, 130, 130, 100, 100,
-                2, COL_NEUTRAL);
-        gsKit_queue_exec(gsGlobal);
-        gsKit_sync_flip(gsGlobal);
-        i++;
+    while(1) {
+        draw_frame_start();
+        im.x += 1;
+        draw_string("PS2 Render Test: 0.0", 5, 8, 0.9f);
+        draw_image(&im);
+        draw_frame_end();
         sys_sleep(2);
     }
-    gsKit_clear(gsGlobal, gs_rgb(100,0,0));
-    gsKit_queue_exec(gsGlobal);
-    gsKit_sync_flip(gsGlobal);
-    return 0;
 }
