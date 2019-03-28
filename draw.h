@@ -23,7 +23,8 @@ struct image {
 };
 
 int draw_frame_start();
-int draw_string(const char *str, float x, float y, float scale);
+int draw_string(const char *str, float x, float y, float scale, 
+        char r, char g, char b);
 int draw_image(const struct image *img);
 int draw_frame_end();
 

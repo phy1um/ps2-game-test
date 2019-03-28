@@ -34,14 +34,15 @@ int draw_frame_end()
    return 0;
 }
 
-int draw_string(const char *str, float x, float y, float scale)
+int draw_string(const char *str, float x, float y, float scale, char r, char g, char b)
 {
 #ifdef DEBUG
     if(in_frame == 0) {
         error("Drawing out of frame");
     }
 #endif
-    gsKit_fontm_print_scaled(gsGlobal, gsFontm, x, y, 2, scale, black, str);
+    u64 col = gs_rgb(r,g,b);
+    gsKit_fontm_print_scaled(gsGlobal, gsFontm, x, y, 2, scale, col, str);
     return 0;
 }
 
