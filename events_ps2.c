@@ -1,5 +1,6 @@
 
 #include "events.h"
+#include "platform.h"
 #include <libpad.h>
 #include <kernel.h>
 
@@ -8,6 +9,29 @@ char pad_read_space[32];
 
 #define R_SIO2MAN "rom0:SIO2MAN"
 #define R_PADMAN "rom0:PADMAN"
+
+int pad_wait(int port, int slot, int tries)
+{
+    int now;
+    int prev = -1;
+    now = padGetState(port, slot);
+    if(now == PAD_STATE_DISCONN) {
+        info("Pad disconnected");
+        return -1;
+    }
+
+    while((now != PAD_STATE_STABLE) && (now != PAD_STATE_FINDCTP1)) {
+        prev = now;
+        now = padGetState(port, slot);
+        tries--;
+        if(tries == 0) {
+            info("Failed to get state from pad");
+            break;
+        }
+    }
+
+    return 0;
+}
 
 /**
  * Hard coded to a single pad for now

@@ -16,6 +16,8 @@ MAIN()
         return rc;
     }
 
+    events_init();
+
     rc = game_enter();
     if(rc != 0) {
         return rc;

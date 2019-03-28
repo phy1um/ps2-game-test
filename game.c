@@ -3,6 +3,7 @@
 #include "ps2.h"
 #include "sys.h"
 #include "draw.h"
+#include "events.h"
 #include <gsToolkit.h>
 #include <time.h>
 
@@ -22,6 +23,15 @@ int game_enter()
     return 0;
 }
 
+static int buttons[EV_MAX] = {0,0,0,0};
+
+static int x = 100;
+static int y = 100;
+
+void h(int e)
+{
+    buttons[e] = !buttons[e];
+}
 
 int game_loop()
 {
@@ -37,14 +47,24 @@ int game_loop()
     unsigned long frame_end;
     unsigned long second_end = sys_time_ms() + SECOND;
     int frames = 0;
+    int dx, dy;
+    install_event_handler(&h);
     while(1) {
+        dx = 0;
+        dy = 0;
         frames++;
         frame_end = sys_time_ms() + FRAME_DELTA;
+        if(buttons[EV_LEFT]) {dx = -2;}
+        if(buttons[EV_RIGHT]) {dx = 2;}
+        if(buttons[EV_UP]) {dy = -2;}
+        if(buttons[EV_DOWN]) {dy = 2;}
         draw_frame_start();
-        im.x += 1;
+        im.x += dx;
+        im.y += dy;
         draw_string("PS2 Render Test: 0.0", 20, 30, 0.4f);
         draw_image(&im);
         draw_frame_end();
+        handle_events();
         while(sys_time_ms() < frame_end) {
             sys_sleep(2);
         }

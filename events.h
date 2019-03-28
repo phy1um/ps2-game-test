@@ -12,7 +12,9 @@
 #define EV_4 9
 #define EV_START 10
 #define EV_SELECT 11
+#define EV_MAX 11
 
+void events_init();
 extern void (*handler)(int event);
 void install_event_handler(void(*fn)(int));
 void handle_events();
