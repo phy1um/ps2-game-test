@@ -82,3 +82,9 @@ int sys_shutdown()
     SleepThread();
     return 0;
 }
+
+unsigned long sys_time_ms()
+{
+    return (clock()*1000)/CLOCKS_PER_SEC;
+}
+

@@ -6,6 +6,10 @@
 #include <gsToolkit.h>
 #include <time.h>
 
+#define GAME_FPS 60
+static unsigned long SECOND = 1000;
+static unsigned long FRAME_DELTA = 1000/60;
+
 int game_enter()
 {
     init_texture_memory(5);
@@ -30,12 +34,24 @@ int game_loop()
         t, 0, 0, 20, 20, 20, 20, 0, 0 };
     struct image im = { &s, 30, 40, 1.2f };
 
+    unsigned long frame_end;
+    unsigned long second_end = sys_time_ms() + SECOND;
+    int frames = 0;
     while(1) {
+        frames++;
+        frame_end = sys_time_ms() + FRAME_DELTA;
         draw_frame_start();
         im.x += 1;
-        draw_string("PS2 Render Test: 0.0", 5, 8, 0.9f);
+        draw_string("PS2 Render Test: 0.0", 20, 30, 0.4f);
         draw_image(&im);
         draw_frame_end();
-        sys_sleep(2);
+        while(sys_time_ms() < frame_end) {
+            sys_sleep(2);
+        }
+        if(sys_time_ms() > second_end) {
+            second_end = sys_time_ms() + SECOND;
+            info("FPS: %d", frames);
+            frames = 0;
+        }
     }
 }

@@ -1,6 +1,7 @@
 #ifndef PLATFORM_H__
 #define PLATFORM_H__
 
+#include <stdio.h>
 #include <stdarg.h>
 
 #define LOGAT "(@%s:%d)"
