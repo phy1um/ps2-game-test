@@ -2,7 +2,7 @@
  * simple platform-independent sprite-sheet drawing to quads
  *
  * @author phy1um
- * @date 2019-04-01
+ * @date 2019-03-23
  */
 #ifndef PS2_DRAW_H__
 #define PS2_DRAW_H__

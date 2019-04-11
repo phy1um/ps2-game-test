@@ -2,7 +2,7 @@
  * draw implementation for the playstation 2 console
  *
  * @author phy1um
- * @date 2019-04-01
+ * @date 2019-03-23
  */
 
 #include <gsToolkit.h>

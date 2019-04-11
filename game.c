@@ -1,3 +1,9 @@
+/**
+ * platform-independent implementation of main game loop
+ *
+ * @author phy1um
+ * @date 2019-03-20
+ */
 #include "game.h"
 #include "platform.h"
 #include "sys.h"
@@ -7,12 +13,16 @@
 #include "room.h"
 #include "rooms/room_list.h"
 
+// how many frames per second do we update and draw at
 #define GAME_FPS 60
 static unsigned long SECOND = 1000;
 static unsigned long FRAME_DELTA = 1000/60;
 
+// current menu bound to the game
 static struct menu *menu_target;
+// 1 if we are in the menu else 0
 static int in_menu;
+// which menu index do we have currently selected
 static int menu_selection;
 
 void do_menu_logic()
@@ -79,6 +89,7 @@ int game_menu_off()
     in_menu = 0;
 }
 
+//call other initialisation functions and setup the default room
 int game_enter()
 {
     info("Initializing texture memory for 5 textures");
@@ -98,14 +109,16 @@ int game_enter()
     return 0;
 }
 
-
+// run the main game loop forever (or until it breaks)
 int game_loop()
 {
     unsigned long frame_end;
     unsigned long second_end = sys_time_ms() + SECOND;
     int frames = 0;
     while(1) {
+        // count frames each second
         frames++;
+        // what time do we expect this frame to end
         frame_end = sys_time_ms() + FRAME_DELTA;
         input_frame_begin();
         handle_events();
@@ -119,9 +132,11 @@ int game_loop()
             room_tick();
         }
         draw_frame_end();
+        // wait until the frame is over if we have spare time
         while(sys_time_ms() < frame_end) {
             sys_sleep(2);
         }
+        // every second report our FPS
         if(sys_time_ms() > second_end) {
             second_end = sys_time_ms() + SECOND;
             info("FPS: %d", frames);
