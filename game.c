@@ -81,14 +81,19 @@ int game_menu_off()
 
 int game_enter()
 {
+    info("Initializing texture memory for 5 textures");
     init_texture_memory(5);
+    info("Initializing input");
     input_init();
+    info("Setting up SANDBOX room to run");
     int r = room_bind(get_sandbox_room());
     if(r < 0) {
         fatal("Failed to init sandbox room!");
         return -1;
     }
+    info("Loading room...");
     room_load(r);
+    info("Entering room");
     room_enter(r);
     return 0;
 }

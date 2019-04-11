@@ -9,12 +9,14 @@ int sys_init()
 {
     SDL_Init(SDL_INIT_EVERYTHING);
     LOGFILE = fopen("run.log", "w");
+    return 0;
 }
 
 int sys_shutdown()
 {
     SDL_Quit();
     exit(0);
+    return 0;
 }
 
 void sys_sleep(unsigned long ms)

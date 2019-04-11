@@ -1,6 +1,7 @@
 #include "platform.h"
 #include "sys.h"
 #include "game.h"
+#include "events.h"
 
 #if defined(__MINGW32__)
 #include <windows.h>
@@ -16,12 +17,18 @@ MAIN()
         return rc;
     }
 
+    info("STARTUP");
+
     events_init();
+
+    info("EVENT STARTUP");
 
     rc = game_enter();
     if(rc != 0) {
         return rc;
     }
+
+    info("IN GAME, STARTING LOOP");
 
     rc = game_loop();
 
