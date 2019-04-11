@@ -1,4 +1,7 @@
-
+/**
+ * ps2 implementation of system code
+ * @author phy1um
+ */
 #include <romfs_io.h>
 #include <gsToolkit.h>
 #include <kernel.h>
@@ -13,12 +16,14 @@ GSFONTM *gsFontm;
 int main_thread_id;
 int watcher_id;
 
+// UNUSED: code from a different attempt at managing sleep
 void wakeup_target(s32 alarm_id, u16 time, void *arg)
 {
     int tgt = *((int*)arg);
     WakeupThread(tgt);
 }
 
+// code relying on standard time methods 
 void sys_sleep(unsigned long ms)
 {
 #if 0
@@ -28,6 +33,7 @@ void sys_sleep(unsigned long ms)
     SleepThread();
     printf("Woke up!");
 #else
+    // wait until the difference from "start" to now is too large
     clock_t start = clock();
     clock_t now;
     float diff = 0;
@@ -36,9 +42,11 @@ void sys_sleep(unsigned long ms)
         diff = (float) (now - start) / (float) CLOCKS_PER_SEC;
     }
     while(diff*1000 < ms);
+    // NOTE: diff is in microseconds
 #endif
 }
 
+// setup the PS2 system and GSKit
 int sys_init()
 {
     rioInit();
@@ -77,14 +85,18 @@ int sys_init()
     return 0;
 }
 
+// when we are done just sleep so that a program running in ps2link can be
+// interrupted
 int sys_shutdown()
 {
     SleepThread();
     return 0;
 }
 
+// get the time from the default clock() function
 unsigned long sys_time_ms()
 {
+    // converting from microseconds to milliseconds
     return (clock()*1000)/CLOCKS_PER_SEC;
 }
 

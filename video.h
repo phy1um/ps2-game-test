@@ -1,4 +1,7 @@
-
+/**
+ * define important video constants
+ * @author phy1um
+ */
 #ifndef PS2_GSTEST_VIDEO_H
 #define PS2_GSTEST_VIDEO_H
 

@@ -1,4 +1,7 @@
-
+/**
+ * implementation of platform specific functionality
+ * @author phy1um
+ */
 #include "platform.h"
 #include "ps2.h"
 #include "video.h"
@@ -8,6 +11,7 @@
 u64 COL_CLEAR = gs_rgb(CLEAR_R, CLEAR_G, CLEAR_B);
 u64 COL_NEUTRAL = gs_rgb(0x80, 0x80, 0x80);
 
+// go into an infinite loop, displaying the error message
 void fatal_handler(const char *msg)
 {
     u64 black = gs_rgb(0,0,0);

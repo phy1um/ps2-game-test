@@ -1,3 +1,6 @@
+/**
+ * definition of special playstation 2 values
+ */
 #ifndef PS2_HEADER_H
 #define PS2_HEADER_H
 
