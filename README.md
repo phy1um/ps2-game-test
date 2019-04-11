@@ -26,12 +26,12 @@ event and game-loop code into a static library. I will then start a new project 
 on it.
 
 ## Style Guide
--Write sensible C code!
--In function defintions, the opening curly brace goes on a new line.
--In if/while statements, the opening curly brace stays on the same line.
--Function names are in ```this_format()```
--Variable names are in the same format, with constants in capitals.
--Comments are all lower case ;D
+- Write sensible C code!
+- In function defintions, the opening curly brace goes on a new line.
+- In if/while statements, the opening curly brace stays on the same line.
+- Function names are in ```this_format()```
+- Variable names are in the same format, with constants in capitals.
+- Comments are all lower case ;D
 
 ## TODO
 - Cleanup commenting, remove @date, comment remaining files (eg room, menu functionality)
