@@ -33,3 +33,10 @@ Function names are in ```this_format()```
 Variable names are in the same format, with constants in capitals.
 Comments are all lower case ;D
 
+##TODO/Goals
+- Cleanup commenting, remove @date, comment remaining files (eg room, menu functionality)
+- Simplify abstractions - platform and sys seem awfulyl similar
+- Trim fat
+- Better texture loading for SDL
+- Make the SDL version actually run!
+
